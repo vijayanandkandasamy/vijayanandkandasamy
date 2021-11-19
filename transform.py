@@ -53,7 +53,7 @@ def get_marker(magnitude):
 
 
 def create_png(url, outfile): 
-  quakes = get_earthquake_data('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.csv')
+  quakes = get_earthquake_data('https://everywebworx.in/vijayanandkandasamy/bigdata/all_week.csv')
   print(quakes[0].__dict__)
 
   # Set up Basemap
@@ -83,6 +83,6 @@ def create_png(url, outfile):
   plt.savefig(outfile)
 
 if __name__ == '__main__':
-  url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.csv'
+  url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/all_week.csv'
   outfile = 'earthquakes.png'
   create_png(url, outfile)
