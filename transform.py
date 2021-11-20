@@ -51,13 +51,13 @@ def get_marker(casecount):
       markersize = casecount * 0.0006;
       return ('bo'), markersize
     if casecount < 25000:
-      markersize = casecount * 0.006;
+      markersize = casecount * 0.0003;
       return ('go'), markersize
     elif casecount < 50000:
-      markersize = casecount * 0.006;
+      markersize = casecount * 0.00015;
       return ('yo'), markersize
     else:
-      markersize = casecount * 0.0006;
+      markersize = casecount * 0.0001;
       return ('ro'), markersize
 
 
