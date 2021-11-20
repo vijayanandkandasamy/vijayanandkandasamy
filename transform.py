@@ -24,7 +24,7 @@ class EarthQuake:
     self.lat = float(row[1])
     self.lon = float(row[2])
     try:
-      self.magnitude = float(row[4])
+      self.magnitude = float(row[6])
     except ValueError:
       self.magnitude = 0
     
@@ -45,12 +45,12 @@ def get_earthquake_data(url):
 
 # control marker color and size based on magnitude
 def get_marker(magnitude):
-    markersize = magnitude * 2.5;
-    if magnitude < 1.0:
+    markersize = magnitude * 0.0002;
+    if magnitude < 10000:
         return ('bo'), markersize
-    if magnitude < 3.0:
+    if magnitude < 25000:
         return ('go'), markersize
-    elif magnitude < 5.0:
+    elif magnitude < 50000:
         return ('yo'), markersize
     else:
         return ('ro'), markersize
