@@ -49,16 +49,16 @@ def get_covid_data(url):
 def get_marker(casecount):    
     if casecount < 10000:
       markersize = casecount * 0.06;
-        return ('bo'), markersize
+      return ('bo'), markersize
     if casecount < 25000:
       markersize = casecount * 0.006;
-        return ('go'), markersize
+      return ('go'), markersize
     elif casecount < 50000:
       markersize = casecount * 0.006;
-        return ('yo'), markersize
+      return ('yo'), markersize
     else:
-        markersize = casecount * 0.0006;
-        return ('ro'), markersize
+      markersize = casecount * 0.0006;
+      return ('ro'), markersize
 
 
 def create_png(url, outfile): 
