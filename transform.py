@@ -36,6 +36,7 @@ def get_earthquake_data(url):
   header = next(reader)
   quakes = [EarthQuake(row) for row in reader]
   quakes = [q for q in quakes if q.magnitude > 0]
+  print (quakes)
   return quakes
 
 
@@ -84,5 +85,6 @@ def create_png(url, outfile):
 
 if __name__ == '__main__':
   url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/all_week.csv'
+  print (url)
   outfile = 'earthquakes.png'
   create_png(url, outfile)
