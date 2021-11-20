@@ -5,7 +5,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-# See https://github.com/GoogleCloudPlatform/datalab-samples/blob/master/basemap/earthquakes.ipynb for a notebook that illustrates this code
 
 import csv
 import requests
@@ -17,48 +16,45 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 # Classes to hold the data
-class EarthQuake:
+class Covid19:
   def __init__(self, row):
     # Parse earthquake data from USGS
     self.timestamp = row[0]
-    self.lat = float(row[1])
-    self.lon = float(row[2])
+    self.lat = float(row[12])
+    self.lon = float(row[13])
     try:
-      self.magnitude = float(row[6])
+      self.casecount = float(row[2])
     except ValueError:
-      self.magnitude = 0
+      self.casecount = 0
     
-def get_earthquake_data(url):
-  # Read CSV earthquake data from USGS
-  # response = requests.get(url)
-  # print (response)
-  # csvio = io.StringIO(response.text)
-  earthquakesFile = open('covidstats.csv')
-  # type(earthquakesFile)
-  reader = csv.reader(earthquakesFile)
+def get_covid_data(url):
+
+  Covid_Dataset_File = open('CovidStatsDec2020.csv')
+  
+  reader = csv.reader(Covid_Dataset_File)
   header = next(reader)
-  quakes = [EarthQuake(row) for row in reader]
-  quakes = [q for q in quakes if q.magnitude > 0]
-  print (quakes)
-  return quakes
+  cases = [Covid19(row) for row in reader]
+  cases = [q for q in cases if q.casecount > 0]
+  print (cases)
+  return cases
 
 
-# control marker color and size based on magnitude
-def get_marker(magnitude):
-    markersize = magnitude * 0.0002;
-    if magnitude < 10000:
+# Control Marker Color And Size Based On Casecount
+def get_marker(casecount):
+    markersize = casecount * 0.00004;
+    if casecount < 50000:
         return ('bo'), markersize
-    if magnitude < 25000:
+    if casecount < 100000:
         return ('go'), markersize
-    elif magnitude < 50000:
+    elif casecount < 200000:
         return ('yo'), markersize
     else:
         return ('ro'), markersize
 
 
 def create_png(url, outfile): 
-  quakes = get_earthquake_data('https://everywebworx.in/vijayanandkandasamy/bigdata/Covid_data.csv')
-  print(quakes[0].__dict__)
+  cases = get_covid_data('https://everywebworx.in/vijayanandkandasamy/bigdata/CovidCases_Dec2020.csv')
+  print(cases[0].__dict__)
 
   # Set up Basemap
   mpl.rcParams['figure.figsize'] = '16, 12'
@@ -69,25 +65,23 @@ def create_png(url, outfile):
   m.drawparallels(np.arange(-90.,99.,30.))
   junk = m.drawmeridians(np.arange(-180.,180.,60.))
 
-  # sort earthquakes by magnitude so that weaker earthquakes
-  # are plotted after (i.e. on top of) stronger ones
-  # the stronger quakes have bigger circles, so we'll see both
-  start_day = quakes[-1].timestamp[:10]
-  end_day = quakes[0].timestamp[:10]
-  quakes.sort(key=lambda q: q.magnitude, reverse=True)
+  # Sort COVID Cases by casecount so that counts of smaller number are plotted after (i.e. on top of) larger ones and the larger ones have bigger circles, so we'll see both
+  start_day = cases[-1].timestamp[:10]
+  end_day = cases[0].timestamp[:10]
+  cases.sort(key=lambda q: q.casecount, reverse=True)
 
-  # add earthquake info to the plot
-  for q in quakes:
+  # Add COVID - 19 | Case Activity info to the plot
+  for q in cases:
     x,y = m(q.lon, q.lat)
-    mcolor, msize = get_marker(q.magnitude)
+    mcolor, msize = get_marker(q.casecount)
     m.plot(x, y, mcolor, markersize=msize)
 
-  # add a title
-  plt.title("Earthquakes {0} to {1}".format(start_day, end_day))
+  # Add Chart Title
+  plt.title("COVID 19 | Global Case Activity - Dec - 2020 | Data Analysis | Vijayanand Kandasamy")
   plt.savefig(outfile)
 
 if __name__ == '__main__':
-  url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/Covid_data.csv'
+  url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/CovidCases_Dec2020.csv'
   print (url)
-  outfile = 'covidstats.png'
+  outfile = 'CovidStatsDec2020.png'
   create_png(url, outfile)
