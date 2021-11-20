@@ -47,12 +47,12 @@ def get_covid_data(url):
 
 # Control Marker Color And Size Based On Casecount
 def get_marker(casecount):
-    markersize = casecount * 0.00004;
-    if casecount < 50000:
+    markersize = casecount * 0.00006;
+    if casecount < 10000:
         return ('bo'), markersize
-    if casecount < 100000:
+    if casecount < 25000:
         return ('go'), markersize
-    elif casecount < 200000:
+    elif casecount < 50000:
         return ('yo'), markersize
     else:
         return ('ro'), markersize
