@@ -33,7 +33,7 @@ def get_earthquake_data(url):
   # response = requests.get(url)
   # print (response)
   # csvio = io.StringIO(response.text)
-  earthquakesFile = open('earthquakes.csv')
+  earthquakesFile = open('covidstats.csv')
   # type(earthquakesFile)
   reader = csv.reader(earthquakesFile)
   header = next(reader)
@@ -57,7 +57,7 @@ def get_marker(magnitude):
 
 
 def create_png(url, outfile): 
-  quakes = get_earthquake_data('https://everywebworx.in/vijayanandkandasamy/bigdata/all_week.csv')
+  quakes = get_earthquake_data('https://everywebworx.in/vijayanandkandasamy/bigdata/Covid_data.csv')
   print(quakes[0].__dict__)
 
   # Set up Basemap
@@ -87,7 +87,7 @@ def create_png(url, outfile):
   plt.savefig(outfile)
 
 if __name__ == '__main__':
-  url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/all_week.csv'
+  url = 'https://everywebworx.in/vijayanandkandasamy/bigdata/Covid_data.csv'
   print (url)
-  outfile = 'earthquakes.png'
+  outfile = 'covidstats.png'
   create_png(url, outfile)
