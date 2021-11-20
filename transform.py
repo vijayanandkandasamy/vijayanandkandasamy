@@ -18,10 +18,16 @@ from mpl_toolkits.basemap import Basemap
 # Classes to hold the data
 class Covid19:
   def __init__(self, row):
-    # Parse earthquake data from USGS
-    self.timestamp = row[0]
-    self.lat = float(row[12])
-    self.lon = float(row[13])
+    # Parse Covid 19 Data
+    self.date = row[0]
+    try:
+      self.lat = float(row[12])
+    except ValueError:
+      self.lat = 0
+    try:
+      self.lon = float(row[13])
+    except ValueError:
+      self.lon = 0
     try:
       self.casecount = float(row[2])
     except ValueError:
@@ -66,8 +72,8 @@ def create_png(url, outfile):
   junk = m.drawmeridians(np.arange(-180.,180.,60.))
 
   # Sort COVID Cases by casecount so that counts of smaller number are plotted after (i.e. on top of) larger ones and the larger ones have bigger circles, so we'll see both
-  start_day = cases[-1].timestamp[:10]
-  end_day = cases[0].timestamp[:10]
+  start_day = cases[-1].date
+  end_day = cases[0].date
   cases.sort(key=lambda q: q.casecount, reverse=True)
 
   # Add COVID - 19 | Case Activity info to the plot
