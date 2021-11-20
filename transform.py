@@ -71,7 +71,7 @@ def create_png(url, outfile):
   m.drawcoastlines()
   m.drawcountries()
   m.drawmapboundary(fill_color='0.3')
-  m.fillcontinents(color='cornsilk2',lake_color='darkslategray1')
+  m.fillcontinents(color='beige',lake_color='powderblue')
   m.drawparallels(np.arange(-90.,99.,30.))
   junk = m.drawmeridians(np.arange(-180.,180.,60.))
 
