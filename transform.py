@@ -31,6 +31,7 @@ class EarthQuake:
 def get_earthquake_data(url):
   # Read CSV earthquake data from USGS
   response = requests.get(url)
+  print (response)
   csvio = io.StringIO(response.text)
   reader = csv.reader(csvio)
   header = next(reader)
